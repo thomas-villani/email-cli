@@ -1,0 +1,49 @@
+{
+  "_comment": "Example configuration for emailcli PowerShell module",
+  "_comment2": "Copy this to ~/.emailcli.json and customize as needed",
+  "_comment3": "All settings are optional - the module uses built-in defaults if not specified",
+
+  "Calendar": {
+    "Days": 7,
+    "Compact": true,
+    "WorkWeek": false
+  },
+
+  "Email": {
+    "DaysBack": 14,
+    "IncludeRead": false,
+    "Limit": 50,
+    "Compact": false,
+    "KeepLinks": false,
+    "Oldest": false
+  },
+
+  "Interactive": {
+    "PreviewLength": 600,
+    "DaysBack": 7,
+    "IncludeRead": false,
+    "Limit": 0,
+    "KeepLinks": false,
+    "Oldest": false
+  },
+
+  "ReadMessage": {
+    "AttachmentPath": ".",
+    "SmallImageThreshold": 100,
+    "IncludeSmallImages": false
+  },
+
+  "SendEmail": {
+    "Importance": "Normal"
+  },
+
+  "Archive": {
+    "DaysBack": 90,
+    "Limit": 50,
+    "Compact": false
+  },
+
+  "Contacts": {
+    "DaysBack": 30
+  },
+}

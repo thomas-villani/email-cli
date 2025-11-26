@@ -1,5 +1,5 @@
 # emailcli.psm1
-# Save this as a .psm1 file and import with: Import-Module .\emailcli.psm1
+# Import with: Import-Module .\emailcli.psm1
 # Tom Villani, Ph.D.
 #
 # A simple powershell toolbox to read emails from outlook into the command line
@@ -1455,7 +1455,7 @@ function Send-OutlookReply {
     The index number from Get-OutlookInbox
 
     .PARAMETER Body
-    The reply message body. If not provided, opens micro for editing
+    The reply message body. If not provided, opens the editor specified in $env:EDITOR, or 'micro' if not set
 
     .PARAMETER Direct
     Reply only to the sender instead of all recipients (default is reply-all)
@@ -1530,7 +1530,7 @@ function Send-OutlookReply {
 
         # Open in editor
         Write-Host "Opening editor... Save and close when done." -ForegroundColor Cyan
-        micro $tempFile
+        if ($env:EDITOR) { & $env:EDITOR $tempFile } else { micro $tempFile }
 
         # Read the content
         $Body = Get-Content -Path $tempFile -Raw
@@ -1830,7 +1830,7 @@ function Send-ForwardOutlookEmail {
     If not provided, will prompt for recipients.
 
     .PARAMETER Body
-    Optional message to add before the forwarded content. If not provided, opens micro for editing
+    Optional message to add before the forwarded content. If not provided, opens the editor specified in $env:EDITOR, or 'micro' if not set
 
     .PARAMETER CC
     CC recipient(s). Separate multiple recipients with semicolons
@@ -1901,7 +1901,7 @@ function Send-ForwardOutlookEmail {
 
         # Open in editor
         Write-Host "Opening editor... Save and close when done." -ForegroundColor Cyan
-        micro $tempFile
+        if ($env:EDITOR) { & $env:EDITOR $tempFile } else { micro $tempFile }
 
         # Read the content
         $Body = Get-Content -Path $tempFile -Raw
@@ -1961,7 +1961,7 @@ function Send-OutlookEmail {
     Email subject line
 
     .PARAMETER Body
-    Email body text. If not provided, opens micro for editing
+    Email body text. If not provided, opens the editor specified in $env:EDITOR, or 'micro' if not set
 
     .PARAMETER CC
     CC recipient(s). Separate multiple recipients with semicolons
@@ -2032,9 +2032,9 @@ function Send-OutlookEmail {
             $header += "`n"
             Set-Content -Path $tempFile -Value $header
             
-            # Open in micro
+            # Open in editor
             Write-Host "Opening editor... Save and close when done." -ForegroundColor Cyan
-            micro $tempFile
+            if ($env:EDITOR) { & $env:EDITOR $tempFile } else { micro $tempFile }
             
             # Read the content
             $Body = Get-Content -Path $tempFile -Raw
